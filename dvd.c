@@ -6,6 +6,7 @@
 
 int main(int argc, char** argv)
 {
+    setvbuf(stdout,NULL, _IONBF,0);
     int height;
     int width;
     if(argc>1)
@@ -48,9 +49,9 @@ int main(int argc, char** argv)
         }
         
         printf("\033[0m"); // Reset color logic
-        fflush(stdout);    // Force print immediately
+//        fflush(stdout);    overwritten by setvbuf 
 
-        if(ballX <= 1 || ballX >= width) {
+        if(ballX <= 0 || ballX >= (width-3)) {
             velocity *= -1;
         }
         if(ballY <=1 || ballY >= height) {
