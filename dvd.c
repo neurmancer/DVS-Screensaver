@@ -16,6 +16,9 @@ int main(int argc, char** argv)
     //Installing SIGINT Handler
     signal(SIGINT,sigIntHandler);
 
+    printf("To exit press Ctrl+C");
+    sleep(1.2);
+
     if(argc>1)
     {
         width = atoi(argv[1]);
@@ -29,10 +32,10 @@ int main(int argc, char** argv)
     }
     printf("\033[?25l"); 
 
-    int ballX = 3;
+    int ballX = 5;
     int ballY = 5;
-    int vertical = 1;
-    int velocity = 1;
+    int dy = 1;
+    int dx = 1;
     
     long color_timer = 0; 
 
@@ -59,14 +62,14 @@ int main(int argc, char** argv)
 //        fflush(stdout);    overwritten by setvbuf 
 
         if(ballX <= 0 || ballX >= (width-3)) {
-            velocity *= -1;
+            dx *= -1;
         }
         if(ballY <=1 || ballY >= height) {
-           vertical *= -1; 
+           dy *= -1; 
         }
         
-        ballY += vertical;
-        ballX += velocity;
+        ballY += dy;
+        ballX += dx;
 
         color_timer++;
 
