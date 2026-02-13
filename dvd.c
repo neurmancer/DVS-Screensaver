@@ -17,7 +17,7 @@ int main(int argc, char** argv)
     signal(SIGINT,sigIntHandler);
 
     printf("To exit press Ctrl+C");
-    sleep(1.2);
+    sleep(1);
 
     if(argc>1)
     {
