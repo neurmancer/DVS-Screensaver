@@ -5,10 +5,14 @@
 #include <stdlib.h>
 #include <signal.h> 
 
+#define FPS 85000
+#define FREQ 0.35
+
 void sigIntHandler(int sig); 
 
 int main(int argc, char** argv)
 {
+    printf("\033[?25l"); 
     setvbuf(stdout,NULL, _IONBF,0);
     int height;
     int width;
@@ -19,7 +23,7 @@ int main(int argc, char** argv)
     printf("To exit press Ctrl+C");
     sleep(1);
 
-    if(argc>1)
+    if(argc>2)
     {
         width = atoi(argv[1]);
         height = atoi(argv[2]);
@@ -30,7 +34,7 @@ int main(int argc, char** argv)
         width=230;
         height=65;
     }
-    printf("\033[?25l"); 
+
 
     int ballX = 5;
     int ballY = 5;
@@ -47,7 +51,7 @@ int main(int argc, char** argv)
 
         const char *text = "DVD";
         
-        if(ballX <= 0 || ballX >= (width-3)) 
+        if(ballX <= 1 || ballX >= (width-strlen(text))) 
         {
             dx *= -1;
         }
@@ -57,12 +61,12 @@ int main(int argc, char** argv)
         }
 
 
-        for(int i = 0; i < 3; i++) {
-            double freq = 0.35;
+        for(int i = 0; i < 3; i++) 
+        {
 
-            int r = (sin(freq * i + color_timer * 0.2 + 0) * 127) + 128;
-            int g = (sin(freq * i + color_timer * 0.2 + 2) * 127) + 128;
-            int b = (sin(freq * i + color_timer * 0.2 + 4) * 127) + 128;
+            int r = (sin(FREQ * i + color_timer * 0.2 + 0) * 127) + 128;
+            int g = (sin(FREQ * i + color_timer * 0.2 + 2) * 127) + 128;
+            int b = (sin(FREQ * i + color_timer * 0.2 + 4) * 127) + 128;
 
             printf("\033[38;2;%d;%d;%dm%c", r, g, b, text[i]);
         }
@@ -77,7 +81,7 @@ int main(int argc, char** argv)
 
         color_timer++;
 
-        usleep(85000); //I pulled that up from my ass so deal with it. 
+        usleep(FPS); //I pulled that up from my ass so deal with it. 
     }
     return 0;
 }
