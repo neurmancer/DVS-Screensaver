@@ -47,6 +47,15 @@ int main(int argc, char** argv)
 
         const char *text = "DVD";
         
+        if(ballX <= 0 || ballX >= (width-3)) 
+        {
+            dx *= -1;
+        }
+        if(ballY <=1 || ballY >= height) 
+        {
+           dy *= -1; 
+        }
+
 
         for(int i = 0; i < 3; i++) {
             double freq = 0.35;
@@ -61,12 +70,7 @@ int main(int argc, char** argv)
         printf("\033[0m"); // Reset color logic
 //        fflush(stdout);    overwritten by setvbuf 
 
-        if(ballX <= 0 || ballX >= (width-3)) {
-            dx *= -1;
-        }
-        if(ballY <=1 || ballY >= height) {
-           dy *= -1; 
-        }
+        
         
         ballY += dy;
         ballX += dx;
