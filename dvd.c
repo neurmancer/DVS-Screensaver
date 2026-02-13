@@ -63,7 +63,7 @@ int main(int argc, char** argv)
 
         color_timer++;
 
-        usleep(90780); //I pulled that up from my ass so deal with it. 
+        usleep(85000); //I pulled that up from my ass so deal with it. 
     }
     return 0;
 }
