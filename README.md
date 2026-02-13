@@ -6,5 +6,4 @@ Just a shitty retro screensaver imitation for CLI
 
 Compile: gcc/cc dvd.c -o output.out -lm 
 
-Usage: ./output .out width height 
-
+Usage: ./output .out width height  / Ctrl+C for exit

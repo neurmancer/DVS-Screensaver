@@ -3,7 +3,7 @@
 #include <string.h>
 #include <math.h>   // For sin()
 #include <stdlib.h>
-#include <signal.h>
+#include <signal.h> 
 
 void sigIntHandler(int sig); 
 
