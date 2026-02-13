@@ -3,12 +3,19 @@
 #include <string.h>
 #include <math.h>   // For sin()
 #include <stdlib.h>
+#include <signal.h>
+
+void sigIntHandler(int sig); 
 
 int main(int argc, char** argv)
 {
     setvbuf(stdout,NULL, _IONBF,0);
     int height;
     int width;
+    
+    //Installing SIGINT Handler
+    signal(SIGINT,sigIntHandler);
+
     if(argc>1)
     {
         width = atoi(argv[1]);
@@ -66,4 +73,11 @@ int main(int argc, char** argv)
         usleep(85000); //I pulled that up from my ass so deal with it. 
     }
     return 0;
+}
+
+void sigIntHandler(int sig)
+{
+    printf("\033[H\033[J"); 
+    printf("\033[?25h");
+    exit(0);
 }
