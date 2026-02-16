@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <signal.h> 
 
-#define FPS 85000
+#define MS_PER_FRAME 85000
 #define FREQ 0.35
 
 void sigIntHandler(int sig); 
@@ -81,7 +81,7 @@ int main(int argc, char** argv)
 
         color_timer++;
 
-        usleep(FPS); //I pulled that up from my ass so deal with it. 
+        usleep(MS_PER_FRAME); //I pulled that up from my ass so deal with it. 
     }
     return 0;
 }
