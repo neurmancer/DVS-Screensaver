@@ -4,58 +4,54 @@
 #include <math.h>   // For sin()
 #include <stdlib.h>
 #include <signal.h> 
+#include <sys/ioctl.h>
+
 
 #define MS_PER_FRAME 85000
 #define FREQ 0.35
+#define SECOND 1000000 //Microseconds
 
 void sigIntHandler(int sig); 
 
-int main(int argc, char** argv)
+int main(void)
 {
+
+    struct winsize window;
+    
     printf("\033[?25l"); 
     setvbuf(stdout,NULL, _IONBF,0);
-    int height;
-    int width;
     
+
     //Installing SIGINT Handler
     signal(SIGINT,sigIntHandler);
 
     printf("To exit press Ctrl+C");
-    sleep(1);
-
-    if(argc>2)
-    {
-        width = atoi(argv[1]);
-        height = atoi(argv[2]);
-
-    }
-    else
-    {
-        width=230;
-        height=65;
-    }
-
+    usleep(SECOND * 1.5);
 
     int ballX = 5;
     int ballY = 5;
     int dy = 1;
     int dx = 1;
     
+    const char *text = "DVD";
+    
     long color_timer = 0; 
 
     while(1)
     {
+        if(ioctl(STDOUT_FILENO,TIOCGWINSZ,&window) == -1) { perror("The terminal size couldn't have been obtained");return(-1);} 
+        
         printf("\033[H\033[J"); 
 
         printf("\033[%d;%dH", ballY, ballX);
 
-        const char *text = "DVD";
+
         
-        if(ballX <= 1 || ballX >= (width-strlen(text))) 
+        if(ballX <= 1 || ballX >= (window.ws_col-strlen(text))) 
         {
             dx *= -1;
         }
-        if(ballY <=1 || ballY >= height) 
+        if(ballY <=1 || ballY >= window.ws_row) 
         {
            dy *= -1; 
         }
@@ -75,12 +71,10 @@ int main(int argc, char** argv)
 //        fflush(stdout);    overwritten by setvbuf 
 
         
-        
         ballY += dy;
         ballX += dx;
 
         color_timer++;
-
         usleep(MS_PER_FRAME); //I pulled that up from my ass so deal with it. 
     }
     return 0;
