@@ -31,8 +31,31 @@ typedef struct
  
 struct winsize window;
 
-int main(void)
+char *text;
+
+int main(int argc,char *argv[])
 {
+     
+    int textSize = 0;
+    if (argc == 2)
+    {
+        text = (char *)malloc(strlen(argv[1])+1);
+        strcpy(text,argv[1]);
+        textSize = strlen(argv[1]);
+        if (textSize > 32)
+        {
+            printf("Text is too long dude :/ \n");
+            return(-1);
+        }
+    }
+    
+    else
+    {
+        text = (char *)malloc(sizeof(char)*4);
+        strcpy(text,"DVD");
+        textSize = 3;
+    }
+    
 
     printf("\033[?25l"); 
     setvbuf(stdout,NULL, _IONBF,0);
@@ -53,11 +76,10 @@ int main(void)
 
     
     long color_timer = 0;
-    char *text = "DVD";
-    short textSize = strlen(text);
+
 
     logo.x = (rand() % window.ws_col-(textSize+5)) + 3;
-    logo.y = (rand() % window.ws_row-3)+1;
+    logo.y = (rand() % window.ws_row-10)+1;
 
     logo.lastX = logo.x;
     logo.lastY = logo.y;
@@ -69,6 +91,7 @@ int main(void)
     while(1)
     {    
 
+
         printf("\033[%d;%dH", logo.y, logo.x);
         logo.lastX = logo.x;
         logo.lastY = logo.y;
@@ -78,9 +101,9 @@ int main(void)
         {
             printf("\a\a\a");
             FREQ = 0.75;
-            logo.dx*=5;
-            logo.dy*=3;
-            cornerPanicCounter = 50;
+            logo.dx*= (rand() % 3)+2;
+            logo.dy*= (rand() % 3)+2;
+            cornerPanicCounter = ((rand() % 10)+2)*4;
             cornerFlag = 1;
         }
         if(logo.x <= 1 || logo.x >= (window.ws_col-textSize)) 
@@ -128,6 +151,7 @@ int main(void)
 
 void sigIntHandler(int sig)
 {
+    free(text);
     printf("\033[H\033[J"); 
     printf("\033[?25h");
     exit(0);
@@ -139,11 +163,8 @@ void sigBitchHandler(int sig)
     {
         if(ioctl(STDOUT_FILENO,TIOCGWINSZ,&window) == -1) { perror("The terminal size couldn't have been obtained");}
     }
-    
 
 }
-
-
 
 enum Corner cornerCheck(int x, int y, int text_len, struct winsize win) {
     int right  = x + text_len - 1;
@@ -155,9 +176,4 @@ enum Corner cornerCheck(int x, int y, int text_len, struct winsize win) {
     if (right >= win.ws_col-1 && bottom >= win.ws_row) return BOTTOM_RIGHT;
 
     return NO_CORNER;
-}
-
-void textWriter(char *text,int textSize)
-{
-
 }

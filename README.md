@@ -5,7 +5,7 @@ Because who needs a life when you can watch a rainbow rectangle defile your term
 
 # Table Of Content
 
-* [**Features**](#features-current-version-v201beta)
+* [**Features**](#features-current-version-v3)
 
 * [In Development(Empty)](#in-development-features)
 
@@ -33,11 +33,12 @@ Because who needs a life when you can watch a rainbow rectangle defile your term
 > - I added a cursed version as another file without trail clearing so it leaves everything on screen perfectly cursed.
 > 
 > - Custom text input via CLI explained in Compile&Run
-
+>
+> - - custom text feature via CLI arguments (./filename.o "I am gay" (c'mon it's RGB so you have to use it like that))
 
 ## **In Development Features**
 
-- custom text feature via CLI arguments *Will get done eventually(that eventually happened to be 30 mins after so...**DONE**)* 
+ 
 
 
 ## Compile & Run
