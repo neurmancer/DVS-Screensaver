@@ -31,8 +31,29 @@ typedef struct
  
 struct winsize window;
 
-int main(void)
+int main(int argc,char *argv[])
 {
+    char *text;
+    int textSize = 0;
+    if (argc == 2)
+    {
+        text = (char *)malloc(strlen(argv[1])+1);
+        strcpy(text,argv[1]);
+        textSize = strlen(argv[1]);
+        if (textSize > 32)
+        {
+            printf("Text is too long dude :/ \n");
+            return(-1);
+        }
+    }
+    
+    else
+    {
+        text = (char *)malloc(sizeof(char)*4);
+        strcpy(text,"DVD");
+        textSize = 3;
+    }
+    
 
     printf("\033[?25l"); 
     setvbuf(stdout,NULL, _IONBF,0);
@@ -53,11 +74,10 @@ int main(void)
 
     
     long color_timer = 0;
-    char *text = "DVD";
-    short textSize = strlen(text);
+
 
     logo.x = (rand() % window.ws_col-(textSize+5)) + 3;
-    logo.y = (rand() % window.ws_row-5)+2;
+    logo.y = (rand() % window.ws_row-10)+1;
 
     logo.lastX = logo.x;
     logo.lastY = logo.y;

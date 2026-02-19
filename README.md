@@ -7,12 +7,12 @@ Because who needs a life when you can watch a rainbow rectangle defile your term
 
 * [**Features**](#features-current-version-v201beta)
 
-* [In Development](#in-development-features)
+* [In Development(Empty)](#in-development-features)
 
 * [Compile&Run](#compile--run)
 
 
-## Features (Current version V2.01Beta)
+## Features (Current Version V3)
 
 > - Bouncing "DVD" text 
 >
@@ -31,10 +31,13 @@ Because who needs a life when you can watch a rainbow rectangle defile your term
 > - Reduced Jitter and optimized CLI clearing 
 >
 > - I added a cursed version as another file without trail clearing so it leaves everything on screen perfectly cursed.
+> 
+> - Custom text input via CLI explained in Compile&Run
+
 
 ## **In Development Features**
 
-- custom text feature via CLI arguments *Will get done eventually* 
+- custom text feature via CLI arguments *Will get done eventually(that eventually happened to be 30 mins after so...**DONE**)* 
 
 
 ## Compile & Run
@@ -43,6 +46,8 @@ Because who needs a life when you can watch a rainbow rectangle defile your term
 
 cc dvd.c -o dvd -lm     #lm for lib math yk.
 
-./dvd  
+./dvd #For default DVD text
+
+./dvd "YOUR TEXT" #For text(it has cap of 32 letters fyi)  
 #Ctrl+C for exit 
 ```
