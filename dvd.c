@@ -8,7 +8,6 @@
 #include <time.h>
 
 #define MS_PER_FRAME 85000
-#define FREQ 0.35
 #define SECOND 1000000 //Microseconds
 
 void sigBitchHandler(int sig); //well it's sigWINCH but why not calling it bitch?
@@ -29,7 +28,7 @@ typedef struct
     int lastX;
     int lastY;
 }Logo;
-
+ 
 struct winsize window;
 
 int main(void)
@@ -49,28 +48,39 @@ int main(void)
     printf("To exit press Ctrl+C");
     usleep(SECOND * 1.5);
 
-
+    float FREQ = 0.35;
     Logo logo = {0,0,1,1};
 
     
-    const char *text = "DVD";
+    long color_timer = 0;
+    char *text = "DVD";
     short textSize = strlen(text);
 
     logo.x = (rand() % window.ws_col-(textSize+5)) + 3;
     logo.y = (rand() % window.ws_row-3)+1;
+
     logo.lastX = logo.x;
     logo.lastY = logo.y;
 
-    long color_timer = 0; 
-
+    
+    int cornerPanicCounter = 0;
+    int cornerFlag = 0;
     while(1)
     {    
 
         printf("\033[H\033[J"); 
         printf("\033[%d;%dH", logo.y, logo.x);
 
-
-        
+        int corner = cornerCheck(logo.x,logo.y,textSize,window);
+        if (corner)
+        {
+            printf("\a\a\a");
+            FREQ = 0.75;
+            logo.dx*=5;
+            logo.dy*=3;
+            cornerPanicCounter = 50;
+            cornerFlag = 1;
+        }
         if(logo.x <= 1 || logo.x >= (window.ws_col-textSize)) 
         {
             logo.dx *= -1;
@@ -90,6 +100,7 @@ int main(void)
 
             printf("\033[38;2;%d;%d;%dm%c", r, g, b, text[i]);
         }
+;
         
         printf("\033[0m"); // Reset color logic
 //        fflush(stdout);    overwritten by setvbuf 
@@ -99,6 +110,15 @@ int main(void)
         logo.x += logo.dx;
 
         color_timer++;
+        if (cornerPanicCounter != 0) {cornerPanicCounter--;}
+        
+        else if(cornerPanicCounter == 0 && cornerFlag == 1)
+        {
+            cornerFlag = 0;
+            FREQ = 0.35;
+            logo.dx /= 5;
+            logo.dy /= 3;
+        }
         usleep(MS_PER_FRAME); //I pulled that up from my ass so deal with it. 
     }
     return 0;
@@ -128,9 +148,14 @@ enum Corner cornerCheck(int x, int y, int text_len, struct winsize win) {
     int bottom = y;  // again, single line
 
     if (x <= 1 && y <= 1)               return TOP_LEFT;
-    if (right >= win.ws_col && y <= 1)  return TOP_RIGHT;
+    if (right >= win.ws_col-1 && y <= 1)  return TOP_RIGHT;
     if (x <= 1 && bottom >= win.ws_row) return BOTTOM_LEFT;
-    if (right >= win.ws_col && bottom >= win.ws_row) return BOTTOM_RIGHT;
+    if (right >= win.ws_col-1 && bottom >= win.ws_row) return BOTTOM_RIGHT;
 
     return NO_CORNER;
+}
+
+void textWriter(char *text,int textSize)
+{
+
 }
