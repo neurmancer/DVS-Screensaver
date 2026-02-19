@@ -68,8 +68,10 @@ int main(void)
     int cornerFlag = 0;
     while(1)
     {    
+        if (cornerFlag) { printf("\033[H\033[J"); }
+        else { printf("\033[%d;%dH\033[K", logo.lastY, logo.lastX); } 
 
-        printf("\033[%d;%dH\033[K", logo.lastY, logo.lastX);
+
         printf("\033[%d;%dH", logo.y, logo.x);
         logo.lastX = logo.x;
         logo.lastY = logo.y;

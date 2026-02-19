@@ -1,18 +1,18 @@
 # DVD-CLI-Screensaver
 Just a **shitty but fun** retro bouncing DVD screensaver imitation for CLI. (tbh at this point I can't call it 'shitty anymore but it stays for the vibe)
 
-Because who needs a life when you can watch a rainbow rectangle defile your terminal till hit corner (spoiler I never checked if it hits or not...(update from 2.01Beta I'll do check tomorrow, I swear I'll do, one stranger that starred this repo))
+Because who needs a life when you can watch a rainbow rectangle defile your terminal till hit corner (spoiler I never checked if it hits or not...(update from V3 It fucking does hit the corner))
 
 # Table Of Content
 
-* [**Features**](#features-curret-version-v201beta)
+* [**Features**](#features-current-version-v201beta)
 
 * [In Development](#in-development-features)
 
 * [Compile&Run](#compile--run)
 
 
-## Features (Curret version V2.01Beta)
+## Features (Current version V2.01Beta)
 
 > - Bouncing "DVD" text 
 >
@@ -32,9 +32,9 @@ Because who needs a life when you can watch a rainbow rectangle defile your term
 >
 > - I added a cursed version as another file without trail clearing so it leaves everything on screen perfectly cursed.
 
-## In Development Features
+## **In Development Features**
 
-- custom text feature via CLI arguments 
+- custom text feature via CLI arguments *Will get done eventually* 
 
 
 ## Compile & Run
