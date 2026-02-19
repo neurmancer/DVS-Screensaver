@@ -57,7 +57,7 @@ int main(void)
     short textSize = strlen(text);
 
     logo.x = (rand() % window.ws_col-(textSize+5)) + 3;
-    logo.y = (rand() % window.ws_row-5)+2;
+    logo.y = (rand() % window.ws_row-3)+1;
 
     logo.lastX = logo.x;
     logo.lastY = logo.y;
@@ -69,7 +69,6 @@ int main(void)
     while(1)
     {    
 
-        printf("\033[%d;%dH\033[K", logo.lastY, logo.lastX);
         printf("\033[%d;%dH", logo.y, logo.x);
         logo.lastX = logo.x;
         logo.lastY = logo.y;

@@ -14,19 +14,23 @@ Because who needs a life when you can watch a rainbow rectangle defile your term
 
 ## Features (Curret version V2.01Beta)
 
-> Bouncing "DVD" text 
+> - Bouncing "DVD" text 
 >
-> Psychedelic truecolor rainbow cycling because why a plain white text when you can get epilepsy seizures 
+> - Psychedelic truecolor rainbow cycling because why a plain white text when you can get epilepsy seizures 
 >
-> Hides cursor/Brings backs when program terminated with Ctrl+C (yeah don't kill terminal for nothing lol)
+> - Hides cursor/Brings backs when program terminated with Ctrl+C (yeah don't kill terminal for nothing lol)
 >
-> Dynamic window size detection 
+> - Dynamic window size detection 
 >
-> Better dynamic window handling with SIGWINCH(this was for you nerds)
+> - Better dynamic window handling with SIGWINCH(this was for you nerds)
 >
-> Random starting point for each run
+> - Random starting point for each run
 >
-> Corner detection 
+> - Corner detection 
+>
+> - Reduced Jitter and optimized CLI clearing 
+>
+> - I added a cursed version as another file without trail clearing so it leaves everything on screen perfectly cursed.
 
 ## In Development Features
 
