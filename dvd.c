@@ -31,9 +31,11 @@ typedef struct
  
 struct winsize window;
 
+char *text;
+
 int main(int argc,char *argv[])
 {
-    char *text;
+     
     int textSize = 0;
     if (argc == 2)
     {
@@ -101,9 +103,9 @@ int main(int argc,char *argv[])
         {
             printf("\a\a\a");
             FREQ = 0.75;
-            logo.dx*=5;
-            logo.dy*=3;
-            cornerPanicCounter = 50;
+            logo.dx*= (rand() % 3)+2;
+            logo.dy*= (rand() % 3)+2;
+            cornerPanicCounter = ((rand() % 10)+2)*4;
             cornerFlag = 1;
         }
         if(logo.x <= 1 || logo.x >= (window.ws_col-textSize)) 
@@ -151,6 +153,7 @@ int main(int argc,char *argv[])
 
 void sigIntHandler(int sig)
 {
+    free(text);
     printf("\033[H\033[J"); 
     printf("\033[?25h");
     exit(0);
@@ -162,11 +165,8 @@ void sigBitchHandler(int sig)
     {
         if(ioctl(STDOUT_FILENO,TIOCGWINSZ,&window) == -1) { perror("The terminal size couldn't have been obtained");}
     }
-    
 
 }
-
-
 
 enum Corner cornerCheck(int x, int y, int text_len, struct winsize win) {
     int right  = x + text_len - 1;
@@ -178,9 +178,4 @@ enum Corner cornerCheck(int x, int y, int text_len, struct winsize win) {
     if (right >= win.ws_col-1 && bottom >= win.ws_row) return BOTTOM_RIGHT;
 
     return NO_CORNER;
-}
-
-void textWriter(char *text,int textSize)
-{
-
 }
