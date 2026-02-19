@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <signal.h> 
 #include <sys/ioctl.h>
-
+#include <time.h>
 
 #define MS_PER_FRAME 85000
 #define FREQ 0.35
@@ -13,8 +13,10 @@
 
 void sigBitchHandler(int sig); //well it's sigWINCH but why not calling it bitch?
 void sigIntHandler(int sig); 
-int cornerCheck(int x,int y);
+enum Corner cornerCheck(int x,int y,int text_len,struct winsize win);
 
+
+enum Corner { NO_CORNER, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT };
 
 typedef struct 
 {
@@ -23,6 +25,9 @@ typedef struct
 
     int dx;
     int dy;
+
+    int lastX;
+    int lastY;
 }Logo;
 
 struct winsize window;
@@ -30,25 +35,32 @@ struct winsize window;
 int main(void)
 {
 
-
-    
     printf("\033[?25l"); 
     setvbuf(stdout,NULL, _IONBF,0);
-    
+    srand(time(NULL));
 
     //Installing SIGINT Handler
     signal(SIGINT,sigIntHandler);
     //Installing Sigbitch
     signal(SIGWINCH,sigBitchHandler);
 
+    ioctl(STDOUT_FILENO,TIOCGWINSZ,&window);
+
     printf("To exit press Ctrl+C");
     usleep(SECOND * 1.5);
 
-    Logo logo = {5,5,1,1};
-    
+
+    Logo logo = {0,0,1,1};
+
     
     const char *text = "DVD";
-    
+    short textSize = strlen(text);
+
+    logo.x = (rand() % window.ws_col-(textSize+5)) + 3;
+    logo.y = (rand() % window.ws_row-3)+1;
+    logo.lastX = logo.x;
+    logo.lastY = logo.y;
+
     long color_timer = 0; 
 
     while(1)
@@ -59,7 +71,7 @@ int main(void)
 
 
         
-        if(logo.x <= 1 || logo.x >= (window.ws_col-strlen(text))) 
+        if(logo.x <= 1 || logo.x >= (window.ws_col-textSize)) 
         {
             logo.dx *= -1;
         }
@@ -69,7 +81,7 @@ int main(void)
         }
 
 
-        for(int i = 0; i < 3; i++) 
+        for(int i = 0; i < textSize; i++) //Tried to make it dynamic 
         {
 
             int r = (sin(FREQ * i + color_timer * 0.2 + 0) * 127) + 128;
@@ -109,9 +121,16 @@ void sigBitchHandler(int sig)
 
 }
 
-int cornerCheck(int x,int y)
-{
 
-    
 
+enum Corner cornerCheck(int x, int y, int text_len, struct winsize win) {
+    int right  = x + text_len - 1;
+    int bottom = y;  // again, single line
+
+    if (x <= 1 && y <= 1)               return TOP_LEFT;
+    if (right >= win.ws_col && y <= 1)  return TOP_RIGHT;
+    if (x <= 1 && bottom >= win.ws_row) return BOTTOM_LEFT;
+    if (right >= win.ws_col && bottom >= win.ws_row) return BOTTOM_RIGHT;
+
+    return NO_CORNER;
 }

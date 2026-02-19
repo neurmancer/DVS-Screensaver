@@ -23,16 +23,14 @@ Because who needs a life when you can watch a rainbow rectangle defile your term
 > Dynamic window size detection 
 >
 > Better dynamic window handling with SIGWINCH(this was for you nerds) **DONE**
-
+>
+>Random starting point for each run
 
 ## In Development Features
 
 - Corner detection and something will trigger when it hits to corner which I haven't thought of yet *Currnetly In Dev*
 
 - custom text feature via CLI arguments 
-
-- Maybe toggle for plain white text/RGB or BOLD/Normal via CLI arguments idk...it's 1.25AM here
-
 
 
 ## Compile & Run
