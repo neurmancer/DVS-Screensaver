@@ -14,26 +14,24 @@ Because who needs a life when you can watch a rainbow rectangle defile your term
 
 ## Features (Curret version V2.01Beta)
 
-- Bouncing "DVD" text 
-
-- Psychedelic truecolor rainbow cycling because why a plain white text when you can get epilepsy seizures 
-
-- Hides cursor/Brings backs when program terminated with Ctrl+C (yeah don't kill terminal for nothing lol)
-
-- Dynamic window size detection (Real time but if you chance continously it jitters a little for now...it'll be fixed and 'by fixed' I meant I'll fucking fix as the developer yk.)
-
+> Bouncing "DVD" text 
+>
+> Psychedelic truecolor rainbow cycling because why a plain white text when you can get epilepsy seizures 
+>
+> Hides cursor/Brings backs when program terminated with Ctrl+C (yeah don't kill terminal for nothing lol)
+>
+> Dynamic window size detection 
+>
+> Better dynamic window handling with SIGWINCH(this was for you nerds) **DONE**
 
 
 ## In Development Features
 
-- Corner detection and something will trigger when it hits to corner which I haven't thought of yet
+- Corner detection and something will trigger when it hits to corner which I haven't thought of yet *Currnetly In Dev*
 
 - custom text feature via CLI arguments 
 
-- Better dynamic window handling with SIGWINCH(this was for you nerds)
-
 - Maybe toggle for plain white text/RGB or BOLD/Normal via CLI arguments idk...it's 1.25AM here
-
 
 
 
