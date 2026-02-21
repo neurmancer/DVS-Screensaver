@@ -77,7 +77,7 @@ int main(int argc,char *argv[])
     
     long color_timer = 0;
 
-
+    int randX,randY;
     logo.x = (rand() % window.ws_col-(textSize+5)) + 3;
     logo.y = (rand() % window.ws_row-10)+1;
 
@@ -103,8 +103,10 @@ int main(int argc,char *argv[])
         {
             printf("\a\a\a");
             FREQ = 0.75;
-            logo.dx*= (rand() % 3)+2;
-            logo.dy*= (rand() % 3)+2;
+            randX= (rand() % 3)+2;
+            logo.dx*=randX;
+            randY =  (rand() % 3)+2;
+            logo.dy*= randY;
             cornerPanicCounter = ((rand() % 10)+2)*4;
             cornerFlag = 1;
         }
@@ -143,8 +145,8 @@ int main(int argc,char *argv[])
         {
             cornerFlag = 0;
             FREQ = 0.35;
-            logo.dx /= 5;
-            logo.dy /= 3;
+            logo.dx /= randX;
+            logo.dy /= randY;
         }
         usleep(MS_PER_FRAME); //I pulled that up from my ass so deal with it. 
     }
