@@ -7,7 +7,7 @@
 #include <sys/ioctl.h>
 #include <time.h>
 
-#define MS_PER_FRAME 85000
+#define MS_PER_FRAME 72000
 #define SECOND 1000000 //Microseconds
 
 void sigBitchHandler(int sig); //well it's sigWINCH but why not calling it bitch?
@@ -31,7 +31,7 @@ typedef struct
  
 struct winsize window;
 
-char *text;
+char *text = NULL;
 
 int main(int argc,char *argv[])
 {
@@ -40,7 +40,10 @@ int main(int argc,char *argv[])
     if (argc == 2)
     {
         text = (char *)malloc(strlen(argv[1])+1);
-        strcpy(text,argv[1]);
+        if (text == NULL) {printf("Allocation fucked up go buy a stick of DDR4\n"); return(-1);}
+	
+
+	strcpy(text,argv[1]);
         textSize = strlen(argv[1]);
         if (textSize > 32)
         {
@@ -52,6 +55,7 @@ int main(int argc,char *argv[])
     else
     {
         text = (char *)malloc(sizeof(char)*4);
+	if (text == NULL) {printf("Bro...I mean no RAM in 2026?Really?\n");return(-1);}
         strcpy(text,"DVD");
         textSize = 3;
     }
